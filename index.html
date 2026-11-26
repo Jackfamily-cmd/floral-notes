@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>花藝筆記</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2F5D50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="花藝筆記">
+<style>
+:root{--bg:#EAF0EC;--card:#fff;--ink:#17231F;--mute:#5E706A;--line:#CBD9D2;--acc:#B83B6B;--acct:#fff;--moss:#2F5D50;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101916;--card:#1A2822;--ink:#E6EFEA;--mute:#93A8A0;--line:#2D4038;--acc:#E0709A;--acct:#1A0A12;--moss:#8FC4AF}}
+:root[data-theme="dark"]{--bg:#101916;--card:#1A2822;--ink:#E6EFEA;--mute:#93A8A0;--line:#2D4038;--acc:#E0709A;--acct:#1A0A12;--moss:#8FC4AF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;padding-bottom:96px}
+header{padding:14px 16px 4px;display:flex;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:24px;color:var(--moss);letter-spacing:.04em}
+.ghost{background:none;border:1px solid var(--line);color:var(--mute);border-radius:99px;padding:4px 12px;font:inherit;font-size:13px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 16px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;font:inherit;font-size:14px}
+.chip.on{background:var(--moss);border-color:var(--moss);color:var(--bg)}
+#list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:8px 16px}
+.card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);cursor:pointer}
+.card img,.ph{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.ph{background:var(--line);display:grid;place-items:center;font-size:34px}
+.card .b{padding:8px 10px 10px}.card h3{margin:0;font-size:15px}.card p{margin:2px 0 0;font-size:12.5px;color:var(--mute)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:48px 8px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-size:14px;padding:14px 0}
+nav button.on{color:var(--acc);font-weight:700;box-shadow:inset 0 3px 0 var(--acc)}
+#fab{position:fixed;right:16px;bottom:calc(66px + env(safe-area-inset-bottom,0px));background:var(--acc);color:var(--acct);border:0;border-radius:99px;padding:13px 22px;font:inherit;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+#sheet{position:fixed;inset:0;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px);z-index:5}
+#sheet[hidden]{display:none}
+.bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line);z-index:2}
+.bar button{font:inherit;border:0;background:none;color:var(--mute);padding:6px}
+.bar .save{background:var(--acc);color:var(--acct);border-radius:99px;padding:8px 20px;font-weight:700}
+form,.f{padding:8px 16px 80px}
+label,.lb{display:block;margin:14px 0 4px;font-size:14px;color:var(--mute)}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+textarea{min-height:84px}
+.pv{width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin-bottom:6px}
+.sr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.sr span{flex:1}.sr b{font-weight:400;color:var(--mute);font-size:12px}
+.st button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin-left:4px}
+.st button.on{background:var(--acc);border-color:var(--acc);color:var(--acct)}
+.del{margin-top:28px;width:100%;padding:12px;border-radius:12px;border:1px solid var(--acc);background:none;color:var(--acc);font:inherit}
+.hint{margin:4px 2px 0;font-size:12.5px;line-height:1.45;color:var(--mute)}
+#guide{position:fixed;inset:0;background:var(--bg);overflow:auto;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);z-index:9}
+#guide[hidden]{display:none}
+.gd{padding:24px 20px 40px;max-width:560px;margin:0 auto}
+.gd h2{margin:0 0 6px;color:var(--moss);font-size:24px}
+.gd p.hint{font-size:14px;margin:12px 2px}
+.gs{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+.gs .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--acc);color:var(--acct);display:grid;place-items:center;font-weight:700}
+#msg{padding:10px 16px;color:var(--acc);font-size:14px}
+@media (min-width:700px){#list{grid-template-columns:repeat(4,1fr)}}
+</style></head>
+<body>
+<header><h1 id="ttl"></h1><span><button class="ghost" id="gd">使用說明</button> <button class="ghost" id="bk">備份</button> <button class="ghost" id="im">匯入</button><input type="file" id="imf" accept=".json,application/json" hidden></span></header>
+<div id="tip" class="hint" style="padding:0 16px"></div><div class="chips" id="flt"></div><div id="msg"></div>
+<main id="list"></main>
+<button id="fab">＋ 新增</button>
+<nav id="nav"><button data-t="work">作品</button><button data-t="idea">靈感</button><button data-t="concept">構思</button><button data-t="practice">練習</button><button data-t="matrix">矩陣</button><button data-t="flower">花材</button></nav>
+<div id="sheet" hidden></div>
+<div id="guide" hidden></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TYPES=['神秘箱','切花設計','花束設計','壁飾設計','組合盆栽','花環','物件裝飾'];
+const ITEMS=[['整體印象',10],['材料運用與主題呈現',10],['造型質感色彩',20],['色彩創意表現',5],['色彩組合配置',5],['原創性與獨特性',5],['主題及空間詮釋',5],['作品穩定度',5],['作品牢固',5],['保鮮及維護',10],['使用正確技巧',5],['技巧困難度',5],['時間掌握',5],['場地整潔',3],['工作安全',2]];
+const MON=[1,2,3,4,5,6,7,8,9,10,11,12];
+const TECH=['編織','綁紮','黏貼','金屬／焊接架構','木藝／竹藝結構','試管','水管隱藏','水袋固定','無花泥卡位（劍山／鳥巢）','蠟滴','乾燥處理','葉片處理（貼葉）','解構重組','懸掛','不對稱張力'];
+const THEME=['幾何對比','建築感','流線動態','極簡','極繁','森林解構','枯榮對比','海洋水流','火／焦黑質感'];
+const CAT2=['手綁花','新娘花飾','神秘箱／空間裝置','切花／餐桌花藝','其他'];
+const PAL=['單色系高低明度','大膽撞色','高灰度／莫蘭迪','暗黑戲劇','鄰近色（類似色）'];
+const WT=['低重心','高重心／懸空','分散式焦點'];
+const LVL=['第一次嘗試','還要再練','已掌握'];
+const BY={kind:TYPES,tech2:TECH,theme:THEME,cat2:CAT2,study:['技法研究']};
+const ROLE=['線條花','團塊花','面狀花','填充花','點綴／動態花','葉材','枝材','造型素材'];
+const TONE=['暖色（紅／橙／黃）','冷色（藍／紫）','中性（白／綠／大地色／莫蘭迪）'];
+const VIBE=['自然野趣','古典油畫','日式侘寂','極簡現代','商業奢華'];
+const FB={cat:ROLE,tone:TONE,vibe:VIBE,fit:TYPES};
+const SRC=['植物學與生態','景觀與意境','藝術品（繪畫、雕塑、建築…）','自然觀察','文學、音樂或生活','其他'];
+const STAT=['剛有想法','修改中','保留（好點子）','已用在作品'];
+const TIP={work:'每次做完作品，當天就記下照片和心得，越快越不會忘。',idea:'看到喜歡的比賽作品就存起來。一定要記來源，並寫一句「我學到什麼」。',concept:'還沒有花材也可以先寫想法。先寫一句創作主軸，其他慢慢補。',practice:'不要整件複製，只挑一個局部做法來練習，並記下卡在哪裡。',matrix:'沒想法時按「重抽一組」，看看隨機組合，有感覺的就存起來。',flower:'去花市前先看當月的花材。「還沒用過」可以找出還沒練習的花材。'};
+const HINT={work:{photo:'拍整件作品的正面，光線要亮、背景乾淨，之後才看得清楚。',name:'取一個好認的名字，例如「春日手綁花束」。',concept:'如果這件作品用了構思庫裡的主題，在這裡選。',date:'預設是今天，需要時可以改。',kind:'對應比賽的題型，選最接近的一個。',order:'只有「神秘箱」才要填，選第幾次。',mins:'題目規定的時間，可以對照比賽時程表。',used:'你實際做了幾分鐘，和規定時間比一比。',cond:'這次的花材是怎麼來的？大會指定、自己選，或神秘箱。',form:'作品最後怎麼呈現？放容器、手拿、掛牆、放桌面，或做成環形。',flowers:'用「、」分開，例如「尤加利、玫瑰」。花材庫會自動算用過幾次。',desc:'寫這件作品想表達什麼、怎麼做。',theory:'寫你用了什麼架構或構圖，例如平行式、放射式。',sketch:'做之前的手繪草圖，拍起來放在這裡。',proc:'記時間怎麼分配、哪裡卡住，下次才會進步。',rate:'對照評分表自己打分，1 最弱、5 最好。誠實打分最有用。',why:'用一句話說明為什麼這樣評。',next:'下次只要改一件事，寫在這裡。'},idea:{photo:'存比賽作品的照片，只供自己學習用。',name:'作品名稱；沒有的話，寫選手名加年份。',event:'例如 World Cup、Eurofleurs、技能競賽。',year:'比賽那一年。',player:'方便追蹤同一位選手的風格變化。',nation:'選手代表的國家或地區。',award:'例如「金獎」，或「這張的結構很特別」。',kind:'對應你比賽的題型，選最接近的一個。',cat2:'國際賽的作品類別，不確定就選「其他」。',tech2:'這張作品用了什麼做法？可以多選。',theme:'這張想表現什麼概念？可以多選。',pal:'它的配色方式是哪一種？',vibe:'整體給人什麼感覺？可以多選。',tags:'用來描述畫面的詞，可以多選。',flowers:'看得出來的花材。',tech:'補充做法的細節。',facet:'這張作品對你的哪個評分項目最有幫助？',learn:'最重要：用一句話寫你從這張學到什麼。',study:'想拿來練習做法時選，之後可以篩選出來。',detail:'放大圖片看接點、固定處，把看到的寫下來。',scale:'想一想：能不能縮小成一個簡單的作品？',src:'一定要填，之後才找得到出處。'},concept:{photo:'可以放藝術品照片，或看到的景色。',name:'給這個想法取個名字。',spirit:'最重要：一句話寫這件作品想傳達什麼。',src:'這個想法是從哪裡來的？',ref:'寫作品名稱、作者或地點，之後才找得到。',eco:'觀察植物怎麼長、怎麼彎、怎麼枯，把看到的寫下來。',scene:'想像一個畫面：什麼時間、什麼氣氛、什麼感覺？',theme:'還沒決定可以先空著，之後再補。',pal:'還沒決定可以先空著。',vibe:'還沒決定可以先空著。',tech2:'想到可能用的做法就選，沒有就空著。',fit:'這個想法適合哪幾種題型？',sketch:'手繪草圖，畫不好也沒關係。',status:'先選「剛有想法」，之後再依進度改。',rev:'每次修改寫一行：日期＋改了什麼、為什麼。想保留原版就按右上角「另存新版」。'},practice:{photo:'拍你練習做出來的成果。',name:'寫清楚練習哪一個局部。',date:'預設是今天。',from:'選你是看哪一張靈感來練習的。',tech2:'這次練的是哪種做法。',mins:'這次練了幾分鐘。',how:'寫你怎麼固定、怎麼接，下次可以照著做。',hard:'哪裡卡住？怎麼修好的？',lvl:'老實選，系統會幫你找出還要再練的。',next:'下次想改進的一件事。'},flower:{photo:'拍花材的照片，之後才認得出來。',name:'花材的名字。',cat:'這個花材在作品裡主要的角色。',tone:'大致的顏色方向。',color:'寫細節，例如「灰綠」。',vibe:'這個花材適合哪種氛圍。',fit:'適合哪幾種比賽題型。',months:'哪幾個月比較容易買到。沒把握就先空著，問過花市再填。',use:'寫特性和用法。確認過後，把【待確認】刪掉。',care:'怎麼處理，花材才不容易凋謝。',price:'去花市時順手記下。'}};
+const S={
+work:{t:'作品',title:'name',f:[['photo','photo','成品照'],['name','text','作品名稱'],['concept','refc','主題／構思（從構思庫選）'],['date','date','日期'],['kind','sel','題型',TYPES],['order','sel','神秘箱次序（只有神秘箱要填）',['一','二','三']],['mins','sel','規定時間（分鐘）',[60,90,120,180]],['used','num','實際用時（分鐘）'],['cond','sel','材料條件',['大會指定','自選','神秘箱']],['form','sel','作品形式',['容器','手持（花束）','壁面','桌面','環形']],['flowers','text','使用花材（用頓號分隔）'],['desc','area','創作說明'],['theory','area','創作理論（架構）'],['sketch','photo','手繪稿'],['proc','area','過程紀錄（時間分配、卡關處）'],['rate','stars','依評分標準自評（1～5）'],['why','text','自評原因（一句話）'],['next','text','下次改進']]},
+idea:{t:'靈感',title:'name',f:[['photo','photo','圖片'],['name','text','作品名稱／編號'],['event','text','賽事'],['year','text','年份'],['player','text','選手姓名'],['nation','text','國籍'],['award','text','得獎名次／亮點（例：金獎結構、細節設計）'],['kind','sel','對應技能競賽題型',TYPES],['cat2','sel','競賽類別（國際賽）',CAT2],['tech2','chips','技法與架構',TECH],['theme','chips','概念與主題',THEME],['pal','sel','配色策略',PAL],['wt','sel','視覺重心',WT],['tags','chips','描述用詞',['形狀','表現形式','比例','視覺協調','質感','結構','對比','韻律','明暗','色調']],['flowers','text','花材'],['tech','text','技法備註'],['facet','sel','對應評分面向',ITEMS.map(x=>x[0])],['learn','text','我學到什麼（一句話）'],['study','sel','標記為技法研究（逆向工程）',['技法研究']],['detail','area','放大看的細節（接點、固定處、試管隱藏、固定角度）'],['scale','area','降維運用：可縮小成什麼商業或日常用途？'],['src','text','來源網址（個人學習用，請務必填寫）']]},
+concept:{t:'構思',title:'name',f:[['photo','photo','參考圖或藝術品照片'],['name','text','主題名稱／構思標題'],['spirit','text','創作精神／主軸（一句話）'],['src','sel','靈感來源',SRC],['ref','text','來源說明（作品名稱、作者、地點、看到的場景）'],['eco','area','植物學與生態學觀察（生長型態、向光性、枯榮、演替、共生…）'],['scene','area','景觀與意境（畫面、氛圍、時間與季節、情感）'],['theme','chips','設計語彙',THEME],['pal','sel','配色方向',PAL],['vibe','chips','風格與氛圍',VIBE],['tech2','chips','可能用到的技法',TECH],['fit','chips','適用題型',TYPES],['sketch','photo','構思草圖'],['status','sel','狀態',STAT],['rev','area','修正紀錄（每次修改寫一行：日期＋改了什麼、為什麼）']]},practice:{t:'練習',title:'name',f:[['photo','photo','練習成果照'],['name','text','練習主題（例：試管加枯枝編織的環形接點）'],['date','date','日期'],['from','ref','來自哪張靈感'],['tech2','chips','練習的局部技法',TECH],['mins','num','練習用時（分鐘）'],['how','area','做法與固定方式'],['hard','area','卡關與修正'],['lvl','sel','熟練度',LVL],['next','text','下次再練或想改進']]},flower:{t:'花材',title:'name',f:[['photo','photo','照片'],['name','text','花材名稱'],['cat','sel','角色（花藝結構中的功能）',ROLE],['tone','chips','色系',TONE],['color','text','顏色（細節）'],['vibe','chips','風格與氛圍',VIBE],['fit','chips','適用題型',TYPES],['months','chips','適用月份',MON],['use','area','特性與用法'],['care','area','處理與保鮮要點'],['price','text','價格範圍']]}};
+let db,assets,dl,items=[],tab='work',by='kind',fby='months',mx=null,cur={},pend={},arm=false,ready=false;
+const filt={work:'',idea:'',concept:'',practice:'',flower:String(new Date().getMonth()+1)};let unused=false;
+const est=i=>{const r=i.rate||[];return r.filter(Boolean).length===15?ITEMS.reduce((a,x,k)=>a+r[k]/5*x[1],0):null};
+const used=f=>items.filter(w=>w.t==='work'&&f.name&&(w.flowers||'').includes(f.name)).length;
+function chips(){let o=tab==='flower'?[['','全部'],...(fby==='months'?MON.map(m=>[String(m),m+'月']):FB[fby].map(x=>[x,x]))]:[['','全部'],...(tab==='idea'?BY[by]:tab==='practice'?LVL:tab==='concept'?STAT:TYPES).map(x=>[x,x])];
+ $('#flt').innerHTML=(tab==='idea'?`<select id="by" class="chip">${[['kind','依題型'],['tech2','依技法'],['theme','依主題'],['cat2','依競賽類別'],['study','標記：技法研究']].map(([v,l])=>`<option value="${v}"${by===v?' selected':''}>${l}</option>`).join('')}</select>`:tab==='flower'?`<select id="fby" class="chip">${[['months','依月份'],['cat','依角色'],['tone','依色系'],['vibe','依風格氛圍'],['fit','依適用題型']].map(([v,l])=>`<option value="${v}"${fby===v?' selected':''}>${l}</option>`).join('')}</select>`:'')+o.map(([v,l])=>`<button class="chip${filt[tab]===v?' on':''}" data-v="${esc(v)}">${esc(l)}</button>`).join('')+(tab==='flower'?`<button class="chip${unused?' on':''}" data-u="1">還沒用過</button>`:'')}
+function list(){if(tab==='matrix'){return matrix()}$('#fab').hidden=false;const s=S[tab];$('#ttl').textContent=s.t+'筆記';$('#tip').textContent=TIP[tab]||'';
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));chips();
+ let a=items.filter(i=>i.t===tab);
+ if(tab==='flower'){const fv=filt.flower;if(fv)a=a.filter(i=>fby==='months'?(i.months||[]).includes(+fv):Array.isArray(i[fby])?i[fby].includes(fv):i[fby]===fv);if(unused)a=a.filter(i=>used(i)===0)}
+ else if(filt[tab])a=a.filter(i=>tab==='idea'?(Array.isArray(i[by])?i[by].includes(filt[tab]):i[by]===filt[tab]):tab==='practice'?i.lvl===filt[tab]:tab==='concept'?i.status===filt[tab]:i.kind===filt[tab]);
+ a.sort((x,y)=>(y.ts||0)-(x.ts||0));
+ $('#list').innerHTML=a.length?a.map(i=>{let sub=tab==='work'?[i.kind,i.date,est(i)!=null?'估計 '+est(i).toFixed(1)+' 分':'']:tab==='idea'?[i.event,i.year,(i.tech2||[]).slice(0,2).join('、')||i.facet]:tab==='concept'?[i.status,i.src,i.spirit]:tab==='practice'?[i.lvl,i.date,(items.find(x=>x.id===i.from)||{}).name]:[i.cat,i.color,'用過 '+used(i)+' 次'];
+  return `<article class="card" data-id="${esc(i.id)}">${i.photo?`<img src="${U(i.photo)}" alt="" loading="lazy">`:'<div class="ph">✿</div>'}<div class="b"><h3>${esc(i[s.title]||'未命名')}</h3><p>${esc(sub.filter(Boolean).join('  '))}</p></div></article>`}).join(''):`<div class="empty">${ready?'這裡還沒有資料。點右下角「＋ 新增」開始。':'載入中…'}</div>`}
+function form(){const s=S[tab];
+ const H=HINT[tab]||{};return s.f.map(([k,ty,lb,op])=>{const v=cur[k];const R=(()=>{
+ if(ty==='photo')return `<div class="lb">${lb}</div>${v?`<img class="pv" src="${pend[k]?esc(pend[k+'u']):U(v)}" alt="">`:pend[k]?`<img class="pv" src="${esc(pend[k+'u'])}" alt="">`:''}${assets?`<input type="file" accept="image/*" data-p="${k}">`:'<div class="lb">目前無法上傳照片</div>'}`;
+ if(ty==='ref'||ty==='refc')return `<label>${lb}<select data-k="${k}"><option value=""></option>${items.filter(x=>x.t===(ty==='ref'?'idea':'concept')).map(x=>`<option value="${esc(x.id)}"${v===x.id?' selected':''}>${esc(x.name||'未命名')}</option>`).join('')}</select></label>`;
+ if(ty==='sel')return `<label>${lb}<select data-k="${k}"><option value=""></option>${op.map(x=>`<option${String(v)===String(x)?' selected':''}>${esc(x)}</option>`).join('')}</select></label>`;
+ if(ty==='area')return `<label>${lb}<textarea data-k="${k}">${esc(v)}</textarea></label>`;
+ if(ty==='chips')return `<div class="lb">${lb}</div><div class="chips" style="flex-wrap:wrap;padding:0">${op.map(x=>`<button type="button" class="chip${(v||[]).includes(x)?' on':''}" data-c="${k}" data-x="${esc(x)}">${esc(x)}${typeof x==='number'?'月':''}</button>`).join('')}</div>`;
+ if(ty==='stars'){const r=v||[];const e=est(cur);return `<details><summary class="lb">${lb}${e!=null?'　估計 '+e.toFixed(1)+' / 100':''}</summary>${ITEMS.map((x,n)=>`<div class="sr"><span>${x[0]} <b>${x[1]}分</b></span><span class="st">${[1,2,3,4,5].map(q=>`<button type="button" class="${r[n]===q?'on':''}" data-r="${n}" data-q="${q}">${q}</button>`).join('')}</span></div>`).join('')}</details>`}
+ return `<label>${lb}<input data-k="${k}" type="${ty==='num'?'number':ty==='date'?'date':'text'}" value="${esc(v)}"></label>`})();return R+(H[k]?`<div class="hint">${esc(H[k])}</div>`:'')}).join('')}
+function open(id){cur=id?{...items.find(i=>i.id===id)}:{};if(!id&&(tab==='work'||tab==='practice'))cur.date=new Date().toISOString().slice(0,10);pend={};arm=false;
+ $('#sheet').hidden=false;$('#sheet').scrollTop=0;
+ $('#sheet').innerHTML=`<div class="bar"><button id="cx">取消</button><span id="st"></span>${cur.id&&tab==='concept'?'<button id="nv">另存新版</button>':''}<button class="save" id="sv">儲存</button></div><div class="f">${form()}${cur.id?'<button class="del" id="dl">刪除這筆資料</button>':''}</div>`}
+function redraw(){const y=$('#sheet').scrollTop;const d=$('#sheet details');const o=d&&d.open;$('#sheet .f').innerHTML=form()+(cur.id?'<button class="del" id="dl">刪除這筆資料</button>':'');if(o)$('#sheet details').open=true;$('#sheet').scrollTop=y}
+async function shrink(f){const b=await createImageBitmap(f);const r=Math.min(1,1400/Math.max(b.width,b.height));const c=document.createElement('canvas');c.width=Math.round(b.width*r);c.height=Math.round(b.height*r);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return new Promise(ok=>c.toBlob(ok,'image/jpeg',.82))}
+async function save(){const b=$('#sv');b.disabled=true;$('#st').textContent='儲存中…';
+ try{for(const k of Object.keys(pend)){if(k.endsWith('u'))continue;const r=await assets.upload(await shrink(pend[k]));cur[k]=r.id}
+  const id=cur.id||('i'+Date.now().toString(36));const d={...cur};delete d.id;d.t=tab;d.ts=d.ts||Date.now();
+  await db.collection('items').doc(id).set(JSON.parse(JSON.stringify(d)));$('#sheet').hidden=true}
+ catch(e){$('#st').textContent='儲存失敗，請再試一次';b.disabled=false}}
+document.addEventListener('click',async e=>{const t=e.target;
+ if(t.closest('#nav button')){tab=t.closest('#nav button').dataset.t;list()}
+ else if(t.dataset.u){unused=!unused;list()}
+ else if(t.dataset.v!==undefined&&t.classList.contains('chip')&&!t.dataset.c){filt[tab]=t.dataset.v;list()}
+ else if(t.closest('.card')){open(t.closest('.card').dataset.id)}
+ else if(t.id==='fab'){if(!db){$('#msg').textContent='資料尚未準備好，請稍後再試。';return}open()}
+ else if(t.id==='gd'){guide()}
+ else if(t.id==='gx'){try{localStorage.setItem('seen','1')}catch(e){}$('#guide').hidden=true}
+ else if(t.id==='nv'){newVer()}
+ else if(t.id==='rl'){roll();matrix()}
+ else if(t.id==='sm'){saveMx()}
+ else if(t.id==='cx')$('#sheet').hidden=true;
+ else if(t.id==='sv')save();
+ else if(t.id==='dl'){if(!arm){arm=true;t.textContent='再按一次確認刪除'}else{try{await db.collection('items').doc(cur.id).delete();$('#sheet').hidden=true}catch(x){$('#st').textContent='刪除失敗'}}}
+ else if(t.dataset.c){const k=t.dataset.c,x=isNaN(t.dataset.x)?t.dataset.x:+t.dataset.x,a=cur[k]||[];cur[k]=a.includes(x)?a.filter(y=>y!==x):[...a,x];redraw()}
+ else if(t.dataset.r){const r=cur.rate||Array(15).fill(0);r[+t.dataset.r]=+t.dataset.q;cur.rate=r;redraw()}
+ else if(t.id==='bk'){exportAll()}
+ else if(t.id==='im'){$('#imf').click()}});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.k)cur[t.dataset.k]=t.type==='number'&&t.value!==''?+t.value:t.value});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='imf'){if(t.files[0])importAll(t.files[0]);t.value='';return}if(t.id==='by'){by=t.value;filt.idea='';list();return}
+ if(t.id==='fby'){fby=t.value;filt.flower=fby==='months'?String(new Date().getMonth()+1):'';list();return}if(t.dataset.k&&t.tagName==='SELECT')cur[t.dataset.k]=t.value;
+ if(t.dataset.p&&t.files[0]){pend[t.dataset.p]=t.files[0];pend[t.dataset.p+'u']=URL.createObjectURL(t.files[0]);cur[t.dataset.p]=cur[t.dataset.p]||'pending';redraw()}});
+list();
+async function newVer(){if(Object.keys(pend).length){$('#st').textContent='請先儲存照片，再另存新版';return}const d={...cur};delete d.id;d.name=(d.name||'未命名')+'（新版）';d.status='修改中';d.of=cur.id;d.ts=Date.now();$('#st').textContent='儲存中…';try{await db.collection('items').doc('i'+Date.now().toString(36)).set(JSON.parse(JSON.stringify(d)));$('#sheet').hidden=true;$('#msg').textContent='已另存新版，原版保留。'}catch(e){$('#st').textContent='儲存失敗'}}
+function guide(){const g=$('#guide');g.hidden=false;g.scrollTop=0;g.innerHTML=`<div class="gd"><h2>歡迎使用花藝筆記</h2><p class="hint">把作品、靈感和花材存在同一個地方，慢慢累積成自己的創作資料庫。</p>${[['記錄作品','做完作品後，到「作品」按右下角「＋ 新增」。拍照、選題型、寫一句心得就可以存了。'],['收集靈感','看到喜歡的比賽作品，到「靈感」存起來。記得填來源，並寫一句「我學到什麼」。'],['沒想法時','到「構思」先寫下想法；或到「矩陣」按「重抽一組」，看看隨機組合。']].map((s,i)=>`<div class="gs"><div class="n">${i+1}</div><div><b>${s[0]}</b><div>${s[1]}</div></div></div>`).join('')}<p class="hint">六個分頁：作品＝每週作品；靈感＝別人的作品；構思＝自己的想法；練習＝練某個局部做法；矩陣＝隨機組合；花材＝花材資料。</p><p class="hint">不用一次填完。每個欄位下面的灰色小字會提示怎麼填，填得少也沒關係，先存起來最重要。想再看一次，按右上角「使用說明」。資料只存在這支手機裡，記得每隔一兩週按右上角「備份」存一份。</p><button class="chip on" id="gx" style="width:100%;padding:14px;font-size:16px;margin-top:8px">開始使用</button></div>`}
+function pick(a,n){return [...a].sort(()=>Math.random()-.5).slice(0,n)}
+function roll(){const m=new Date().getMonth()+1;let fl=items.filter(i=>i.t==='flower'&&(i.months||[]).includes(m));if(fl.length<3)fl=items.filter(i=>i.t==='flower');const [a,b]=pick(items.filter(i=>i.t==='idea'),2);mx={a,b,f:pick(fl,3),k:pick(TYPES,1)[0],c:pick(items.filter(i=>i.t==='concept'),1)[0]}}
+function matrix(){$('#fab').hidden=true;$('#ttl').textContent='創作矩陣';$('#tip').textContent=TIP.matrix;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==='matrix'));$('#flt').innerHTML='';
+ if(!mx||!mx.a||!mx.b)roll();const{a,b,f,k,c}=mx;
+ const row=(t,x,im)=>`<div class="card" style="grid-column:1/-1;display:flex;gap:10px;align-items:center;padding:10px;cursor:default">${im?`<img src="${U(im)}" alt="" style="width:72px;height:72px;border-radius:10px;object-fit:cover">`:''}<div><div class="lb" style="margin:0">${t}</div><b>${esc(x)}</b></div></div>`;
+ $('#list').innerHTML=!a||!b?'<div class="empty">靈感庫至少要有 2 筆資料，才能組合。先去「靈感」存幾張作品吧。</div>':row('題型',k)+row('A　架構線條',(a.name||'未命名')+'｜'+[(a.tech2||[]).join('、'),(a.theme||[]).join('、')].filter(Boolean).join('；'),a.photo)+row('B　色彩計畫',(b.name||'未命名')+'｜'+(b.pal||'尚未標記配色'),b.photo)+row('C　你能買到的花材',f.map(x=>x.name).join('、')||'花材庫還沒有資料')+row('D　主題發想',c?(c.name||'未命名')+'｜'+(c.spirit||''):'構思庫還沒有資料',c&&c.photo)+'<button class="chip on" id="rl" style="grid-column:1/-1">重抽一組</button><button class="chip" id="sm" style="grid-column:1/-1">存成作品構想</button>'}
+async function saveMx(){if(!db||!mx||!mx.a||!mx.b)return;const{a,b,f,k,c}=mx;const names=f.map(x=>x.name).join('、');try{await db.collection('items').doc('i'+Date.now().toString(36)).set({t:'work',ts:Date.now(),name:'構想：'+k,kind:k,flowers:names,desc:'架構線條：'+(a.name||'')+'；色彩計畫：'+(b.name||'')+'（'+(b.pal||'')+'）；花材：'+names+(c?'；主題：'+(c.name||'')+'｜'+(c.spirit||''):'')+'。（由創作矩陣抽出，尚未實作）'});$('#msg').textContent='已存成作品構想，到「作品」分頁可以看到。'}catch(e){$('#msg').textContent='儲存失敗，請再試一次'}}
+try{if(localStorage.getItem('seen')!=='1')guide()}catch(e){guide()}
+
+var BU={};var U=function(id){return BU[id]||''};
+const IDB={db:null,
+ open(){return new Promise((ok,no)=>{const r=indexedDB.open('floral-notebook',1);r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('items',{keyPath:'id'});d.createObjectStore('blobs',{keyPath:'id'})};r.onsuccess=()=>{this.db=r.result;ok()};r.onerror=()=>no(r.error)})},
+ tx(s,m,f){return new Promise((ok,no)=>{const t=this.db.transaction(s,m);const q=f(t.objectStore(s));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error);t.onabort=()=>no(t.error)})},
+ all(s){return this.tx(s,'readonly',o=>o.getAll())},
+ put(s,v){return this.tx(s,'readwrite',o=>o.put(v))},
+ del(s,k){return this.tx(s,'readwrite',o=>o.delete(k))}};
+const subs=[];
+async function emit(){const a=await IDB.all('items');subs.forEach(f=>f(a))}
+db={collection:()=>({onSnapshot:(ok,er)=>{subs.push(a=>ok({docs:a.map(d=>({id:d.id,data:()=>{const r={...d};delete r.id;return r}}))}));emit().catch(er)},
+ doc:id=>({set:async d=>{await IDB.put('items',{...d,id});await emit()},delete:async()=>{await IDB.del('items',id);await emit()}})})};
+assets={upload:async blob=>{const id='b'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);await IDB.put('blobs',{id:id,blob:blob});BU[id]=URL.createObjectURL(blob);return{id:id}}};
+const SEED=[{"eco": "（範例）植物會朝光源彎曲生長，莖的動勢由下往上、由暗往亮。", "name": "（範例）向光", "ref": "（範例）觀察窗邊植物朝光彎曲的樣子", "rev": "（範例）2026/11/25 先寫下想法，還沒決定花材與技法。", "scene": "（範例）清晨斜光穿過林間，安靜而向上的畫面。", "spirit": "以一條朝光延伸的主線，表現生長的方向", "src": "植物學與生態", "status": "剛有想法", "t": "concept", "theme": ["流線動態"], "ts": 1764000000100, "id": "c01"}, {"care": "【待確認】一般做法：莖端斜剪、去除泡水葉片、用乾淨的水。", "cat": "線條花", "color": "", "months": [], "name": "飛燕草（大飛燕）", "t": "flower", "ts": 1764000000024, "use": "【待確認】花藝教學中常直插在作品中央當高的主線條；葉子要去除乾淨。月份未查到，請自行填。", "id": "f01"}, {"care": "【待確認】一般做法：莖端斜剪、去除泡水葉片、用乾淨的水。", "cat": "線條花", "color": "", "months": [], "name": "金魚草", "t": "flower", "ts": 1764000000023, "use": "【待確認】古典花型教學中作主線條，高度常定為花器直徑的數倍。月份未查到，請自行填。", "id": "f02"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "線條花", "color": "紅、粉、橙、紫、白", "months": [1, 2, 3], "name": "劍蘭（唐菖蒲）", "t": "flower", "ts": 1764000000022, "use": "【待確認】花姿挺拔，可直接投入高花器或搭配其他花材。月份依花市資料中春節與三月清明為熱門時段，並非完整供貨表。", "id": "f03"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "面狀花", "color": "", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "name": "火鶴", "t": "flower", "ts": 1764000000021, "use": "【待確認】造型感強的主花，常在花藝作品中左右各放一枝取得平衡。花市資料中四月為熱門時段；全年供應是我的一般認知，請向花市確認。", "id": "f04"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "面狀花", "color": "", "months": [], "name": "海芋", "t": "flower", "ts": 1764000000020, "use": "【待確認】莖較軟，教學作品中用 18 號鐵絲加固，並用膠帶纏繞。月份未查到，請自行填。", "id": "f05"}, {"care": "【待確認】花開後去除花藥。其他請依一般切花做法。", "cat": "面狀花", "color": "紅、粉、白", "months": [1, 2, 6], "name": "百合", "t": "flower", "ts": 1764000000019, "use": "【待確認】花型辨識度高、香氣濃；花頭重，要預留綻放空間並注意花器配重；花開後建議去除花藥以免花粉沾染。月份依花市資料中春節與六月為熱門時段，並非完整供貨表。", "id": "f06"}, {"care": "【待確認】一般做法：莖端斜剪、去除泡水葉片、用乾淨的水。", "cat": "團塊花", "color": "", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "name": "玫瑰", "t": "flower", "ts": 1764000000018, "use": "【待確認】常作團塊主花。花市資料中二月與六月為熱門時段；全年供應是我的一般認知，請向花市確認。", "id": "f07"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "團塊花", "color": "", "months": [2, 6], "name": "洋桔梗", "t": "flower", "ts": 1764000000017, "use": "【待確認】花市資料中二月與六月為熱門時段，月份並非完整供貨表。", "id": "f08"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "團塊花", "color": "紫", "months": [6], "name": "桔梗", "t": "flower", "ts": 1764000000016, "use": "【待確認】教學作品中紫桔梗一高一低穿插在線條花前方。月份依花市資料中六月為熱門時段，並非完整供貨表。", "id": "f09"}, {"care": "【待確認】一般做法：莖端斜剪、去除泡水葉片、用乾淨的水。", "cat": "團塊花", "color": "", "months": [1, 2, 3], "name": "菊花（大菊、小菊）", "t": "flower", "ts": 1764000000015, "use": "【待確認】花型與花色選擇多，搭配松、竹、柏等葉材可帶出古典年味。月份依花市資料中春節與三月清明為熱門時段，並非完整供貨表。", "id": "f10"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "填充花", "color": "粉紫", "months": [], "name": "雲南菊", "t": "flower", "ts": 1764000000014, "use": "【待確認】教學作品中高低穿插補在大花周圍，並遮住海綿。月份未查到，請自行填。", "id": "f11"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "團塊花", "color": "", "months": [5], "name": "康乃馨", "t": "flower", "ts": 1764000000013, "use": "【待確認】花市資料中五月母親節為主角，月份並非完整供貨表。", "id": "f12"}, {"care": "【待確認】一般做法：莖端斜剪、用乾淨的水。", "cat": "面狀花", "color": "黃", "months": [6], "name": "向日葵（太陽花）", "t": "flower", "ts": 1764000000012, "use": "【待確認】花市資料中六月畢業季為熱門時段，月份並非完整供貨表。", "id": "f13"}, {"care": "", "cat": "枝材", "color": "", "months": [1, 2], "name": "銀柳", "t": "flower", "ts": 1764000000011, "use": "【待確認】花市資料中正月春節為熱門時段，月份並非完整供貨表。", "id": "f14"}, {"care": "", "cat": "枝材", "color": "", "months": [1, 2], "name": "桃花（枝）", "t": "flower", "ts": 1764000000010, "use": "【待確認】適合高花器，枝條分開投入、不要擠在一起；花後枝頭新芽仍會展開。月份依花市資料中春節時段，並非完整供貨表。", "id": "f15"}, {"care": "", "cat": "填充花", "color": "白", "months": [], "name": "白藜麥", "t": "flower", "ts": 1764000000009, "use": "【待確認】教學作品中用來填補空白處。月份未查到，請自行填。", "id": "f16"}, {"care": "", "cat": "葉材", "color": "", "months": [], "name": "巴西木葉", "t": "flower", "ts": 1764000000008, "use": "【待確認】可剪段、對摺塑形，也能遮住海綿。月份未查到，請自行填。", "id": "f17"}, {"care": "", "cat": "葉材", "color": "", "months": [], "name": "茉莉葉", "t": "flower", "ts": 1764000000007, "use": "【待確認】歐式花藝常用來打底，不讓海綿露出來；葉子不夠時也可用桔梗的葉子。月份未查到，請自行填。", "id": "f18"}, {"care": "", "cat": "葉材", "color": "灰綠", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "name": "尤加利", "t": "flower", "ts": 1764000000006, "use": "【待確認】提供線條與量感。全年供應是我的一般認知，請向花市確認。", "id": "f19"}, {"care": "", "cat": "葉材", "color": "", "months": [11], "name": "雪松", "t": "flower", "ts": 1764000000005, "use": "【待確認】依一篇 2025 年 11 月的花藝作品花材清單填入十一月，並非完整供貨表。", "id": "f20"}, {"care": "", "cat": "造型素材", "color": "", "months": [11], "name": "松果", "t": "flower", "ts": 1764000000004, "use": "【待確認】依一篇 2025 年 11 月的花藝作品花材清單填入十一月，並非完整供貨表。", "id": "f21"}, {"care": "", "cat": "造型素材", "color": "白", "months": [11], "name": "白棉花", "t": "flower", "ts": 1764000000003, "use": "【待確認】依一篇 2025 年 11 月的花藝作品花材清單填入十一月，並非完整供貨表。", "id": "f22"}, {"care": "", "cat": "填充花", "color": "", "months": [11], "name": "卡斯比亞", "t": "flower", "ts": 1764000000002, "use": "【待確認】依一篇 2025 年 11 月的花藝作品花材清單填入十一月，並非完整供貨表。", "id": "f23"}, {"care": "", "cat": "填充花", "color": "白", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "name": "滿天星", "t": "flower", "ts": 1764000000001, "use": "【待確認】常作填充。全年供應是我的一般認知，請向花市確認。", "id": "f24"}];
+async function exportAll(){try{const its=await IDB.all('items');const bl=await IDB.all('blobs');
+ const blobs=await Promise.all(bl.map(b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok({id:b.id,data:r.result});r.readAsDataURL(b.blob)})));
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({v:1,items:its,blobs:blobs})],{type:'application/json'}));
+ a.download='花藝筆記備份_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();
+ try{localStorage.setItem('lastbk',String(Date.now()))}catch(e){}
+ $('#msg').textContent='備份檔已下載。請把它存到雲端，或傳給家長保管。'}catch(e){$('#msg').textContent='備份失敗，請再試一次。'}}
+async function importAll(file){try{const j=JSON.parse(await file.text());
+ for(const b of j.blobs||[]){const blob=await (await fetch(b.data)).blob();await IDB.put('blobs',{id:b.id,blob:blob});BU[b.id]=URL.createObjectURL(blob)}
+ for(const i of j.items||[])await IDB.put('items',i);await emit();$('#msg').textContent='已匯入 '+(j.items||[]).length+' 筆資料。'}catch(e){$('#msg').textContent='匯入失敗，請確認選的是花藝筆記的備份檔。'}}
+(async()=>{try{await IDB.open();
+ (await IDB.all('blobs')).forEach(b=>{BU[b.id]=URL.createObjectURL(b.blob)});
+ try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+ let seeded=false;try{seeded=localStorage.getItem('seeded')==='1'}catch(e){}
+ if(!seeded&&!(await IDB.all('items')).length){for(const d of SEED)await IDB.put('items',d)}
+ try{localStorage.setItem('seeded','1')}catch(e){}
+ let first=true;
+ db.collection('items').onSnapshot(s=>{items=s.docs.map(d=>({id:d.id,...d.data()}));ready=true;list();
+  if(first){first=false;try{const t=+localStorage.getItem('lastbk')||0;if(items.length>5&&Date.now()-t>14*864e5)$('#msg').textContent='提醒：超過兩週沒備份了，按右上角「備份」存一份。'}catch(e){}}},
+  ()=>{ready=true;$('#msg').textContent='讀取資料失敗，請重新整理。';list()})
+ }catch(e){ready=true;$('#msg').textContent='這個瀏覽器無法儲存資料。請改用 Safari 或 Chrome，並關閉私密瀏覽。';list()}})();
+</script></body></html>
